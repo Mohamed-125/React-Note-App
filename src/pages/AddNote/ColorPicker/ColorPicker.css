@@ -1,0 +1,16 @@
+.addNote__choose_color {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.color__icon {
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.acitve__color_button {
+  transform: scale(1.2);
+  border: 2px solid black;
+}

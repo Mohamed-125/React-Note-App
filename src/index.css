@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+h1 {
+  font-size: 6rem;
+}
+
+.section__padding {
+  padding: 1rem 6rem;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+input[type="text"] {
+  border: 1px solid black;
+  padding: 0.3rem 2rem;
+  border-radius: 10px;
+  font-size: 20px;
+}
+@media (max-width: 680px) {
+  .section__padding {
+    padding: 1rem 3rem;
+  }
+}
