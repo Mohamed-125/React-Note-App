@@ -21,9 +21,7 @@ path {
 }
 .home__content_contener {
   margin-top: 40px;
-
-  align-items: center;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
 }
 
 .home__trash_icon {

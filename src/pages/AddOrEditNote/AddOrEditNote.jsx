@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./AddNote.css";
+import "./AddOrEditNote.css";
 import ColorPicker from "./ColorPicker/ColorPicker";
 import UploadImg from "./UploadImg/UploadImg";
-const AddNote = ({
+const AddOrEditNote = ({
   backgroundColor,
   setBackgroundColor,
   notes,
@@ -12,15 +12,29 @@ const AddNote = ({
   setNote,
   note,
   editedNoteId,
+  setImg,
+  img,
 }) => {
+  // this component is the most complex one is this project
+  // this component is for editing or adding new note
+  // if the edit is true that's means that we are editing
+  // if false that's mean that we are adding new note
+
+  // refs
   const titleRef = useRef();
   const descRef = useRef();
+
+  // navigte to go back to the previous page
+
   const navigate = useNavigate();
-  const [img, setImg] = useState("");
+
+  // submit handler to add or edit component
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (edit) {
+      // to set the note which we are at to save it in the local storage and prevent it from
+      // disappering when reload
       const data = {
         title: titleRef?.current.value,
         desc: descRef?.current.value,
@@ -33,13 +47,17 @@ const AddNote = ({
 
       setNote([Object.assign({}, noteObject, data)]);
 
+      // to set the eddited note and to change it
+
       const edditedNote = notes.findIndex(
         (item) => parseInt(item.id) === parseInt(editedNoteId)
       );
-
       notes[edditedNote] = data;
       setNotes([...notes]);
-    } else {
+    }
+
+    // if we are note edditing then add the note to the other notes
+    else {
       setNotes([
         ...notes,
         {
@@ -52,9 +70,12 @@ const AddNote = ({
       ]);
     }
 
+    // to navigate when the adding or eddting procces end
     setTimeout(() => {
       navigate("/");
     }, 0);
+    // to make the default background if the user didn't select one
+    // which is degree of yellow
 
     if (!edit) {
       return () => {
@@ -63,6 +84,19 @@ const AddNote = ({
     }
   };
 
+  // to save the img when editing the note
+
+  useEffect(() => {
+    if (edit && note.length > 0) {
+      setImg(note[0].img);
+    }
+
+    return () => {
+      setNote([]);
+      localStorage.removeItem("note");
+    };
+  }, []);
+
   return (
     <div className="section__padding">
       <div>
@@ -70,6 +104,8 @@ const AddNote = ({
       </div>
       <div className="addNote__content_contener">
         <div>
+          {/* the upload colorPicker  component  */}
+
           <ColorPicker setBackgroundColor={setBackgroundColor} />
         </div>
         <div className="addNote__inputs">
@@ -90,7 +126,11 @@ const AddNote = ({
               placeholder="Note description..."
               ref={descRef}
             />
+
+            {/* the upload img component  */}
+
             <UploadImg img={img} setImg={setImg} />
+
             <button
               style={{
                 position: "absolute",
@@ -113,4 +153,4 @@ const AddNote = ({
   );
 };
 
-export default AddNote;
+export default AddOrEditNote;
