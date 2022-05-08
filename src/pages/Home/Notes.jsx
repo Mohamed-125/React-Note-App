@@ -3,9 +3,6 @@ import { FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export function Notes({ notes, setSearchWord, filteredNotes, trashHandler }) {
-  useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify([...notes]));
-  }, [notes]);
   return (
     <div>
       {notes.length > 0 ? (
