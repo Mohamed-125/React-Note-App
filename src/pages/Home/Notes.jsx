@@ -8,7 +8,7 @@ export function Notes({ notes, setSearchWord, filteredNotes, trashHandler }) {
   }, [notes]);
   return (
     <div>
-      {Object.keys(notes).length > 0 ? (
+      {notes.length > 0 ? (
         <div
           style={{
             display: "grid",
