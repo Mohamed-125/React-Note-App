@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export function Notes({ notes, setSearchWord, filteredNotes, trashHandler }) {
   return (
     <div>
-      {notes.length > 0 ? (
+      {notes && notes.length > 0 ? (
         <div
           style={{
             display: "grid",
