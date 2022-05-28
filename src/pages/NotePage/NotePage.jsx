@@ -50,9 +50,16 @@ const NotePage = ({ notes, note, setNote, setEditedNoteId }) => {
           src={note[0]?.img}
         />
       ) : null}
-      <p style={{ marginTop: "2rem", overflowWrap: "break-word" }}>
+      <pre
+        style={{
+          marginTop: "2rem",
+          whiteSpace: " pre-wrap",
+          fontFamily: "sans-serif",
+          fontSize: "clamp(15px, 5vw ,20px)",
+        }}
+      >
         {note[0]?.desc}
-      </p>
+      </pre>
       <FaPenSquare
         onClick={editHandler}
         style={{
