@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import "./ColorPicker.css";
 const ColorPicker = ({ setBackgroundColor }) => {
   const colorClickHandler = (e) => {
@@ -8,6 +9,11 @@ const ColorPicker = ({ setBackgroundColor }) => {
     });
     e.target.classList.add("acitve__color_button");
   };
+  useEffect(() => {
+    return () => {
+      setBackgroundColor("yellow");
+    };
+  }, []);
   return (
     <div className="addNote__choose_color">
       <button

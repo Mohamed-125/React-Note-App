@@ -58,7 +58,7 @@ const NotePage = ({ notes, note, setNote, setEditedNoteId }) => {
           fontSize: "clamp(15px, 5vw ,20px)",
         }}
       >
-        {note[0]?.desc}
+        {note[0]?.content}
       </pre>
       <FaPenSquare
         onClick={editHandler}

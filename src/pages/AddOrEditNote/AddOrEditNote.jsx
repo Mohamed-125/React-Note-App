@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./AddOrEditNote.css";
 import ColorPicker from "./ColorPicker/ColorPicker";
 import UploadImg from "./UploadImg/UploadImg";
+import axios from "axios";
 const AddOrEditNote = ({
   backgroundColor,
   setBackgroundColor,
@@ -37,14 +38,17 @@ const AddOrEditNote = ({
       // disappering when reload
       const data = {
         title: titleRef?.current.value,
-        desc: descRef?.current.value,
+        content: descRef?.current.value,
         img,
         backgroundColor,
         id: editedNoteId,
       };
 
       const noteObject = note[0];
-
+      axios.put(
+        `https://62948189a7203b3ed06a58f3.mockapi.io/news/notes/${editedNoteId}`,
+        data
+      );
       setNote([Object.assign({}, noteObject, data)]);
 
       // to set the eddited note and to change it
@@ -56,18 +60,18 @@ const AddOrEditNote = ({
       setNotes([...notes]);
     }
 
-    // if we are note edditing then add the note to the other notes
+    // if we are not edditing then add the note to the other notes
     else {
-      setNotes([
-        ...notes,
-        {
-          title: titleRef?.current.value,
-          desc: descRef?.current.value,
-          img,
-          backgroundColor,
-          id: Math.random() * 1000,
-        },
-      ]);
+      let data = {
+        title: titleRef?.current.value,
+        content: descRef?.current.value,
+        img,
+        backgroundColor,
+      };
+      axios
+        .post(`https://62948189a7203b3ed06a58f3.mockapi.io/news/notes`, data)
+        .then((res) => setNotes([...notes, res.data]));
+      // setNotes([...notes, data]);
     }
 
     // to navigate when the adding or eddting procces end
@@ -92,6 +96,7 @@ const AddOrEditNote = ({
     }
 
     return () => {
+      setImg("");
       setNote([]);
       localStorage.removeItem("note");
     };
@@ -122,7 +127,7 @@ const AddOrEditNote = ({
             <textarea
               required
               type="text"
-              defaultValue={edit ? note[0]?.desc : null}
+              defaultValue={edit ? note[0]?.content : null}
               placeholder="Note description..."
               ref={descRef}
             />

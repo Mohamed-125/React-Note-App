@@ -17,6 +17,7 @@ export function Notes({ notes, setSearchWord, filteredNotes, trashHandler }) {
               filteredNotes.map((item) => {
                 return (
                   <div
+                    id={item.id}
                     className="note__div_contener"
                     style={{
                       position: "relative",
@@ -47,7 +48,7 @@ export function Notes({ notes, setSearchWord, filteredNotes, trashHandler }) {
                             overflow: "hidden",
                           }}
                         >
-                          {item.desc}
+                          {item.content}
                         </p>
                         {item.img ? (
                           <img

@@ -3,9 +3,10 @@ import Home from "./pages/Home/Home";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import AddOrEditNote from "./pages/AddOrEditNote/AddOrEditNote";
 import NotePage from "./pages/NotePage/NotePage";
+import axios from "axios";
 const App = () => {
   const [backgroundColor, setBackgroundColor] = useState("#f7ed59");
-  const [notes, setNotes] = useState(JSON.parse(localStorage.getItem("notes")));
+  const [notes, setNotes] = useState([]);
   const [note, setNote] = useState([]);
   const [editedNoteId, setEditedNoteId] = useState(0);
   const [filteredNotes, setFilteredNotes] = useState([]);
@@ -13,8 +14,11 @@ const App = () => {
   const [img, setImg] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify([]));
+    axios
+      .get("https://62948189a7203b3ed06a58f3.mockapi.io/news/notes")
+      .then((data) => setNotes(data.data));
   }, []);
+
   // when the search word change
   useEffect(() => {
     if (searchWord[0]) {
@@ -30,13 +34,12 @@ const App = () => {
         })
       );
     }
-    console.log(searchWord);
   }, [searchWord]);
 
   // save the notes to the local storage
 
   useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify([...notes]));
+    console.log(notes);
     setFilteredNotes(notes);
   }, [notes]);
 
@@ -65,6 +68,9 @@ const App = () => {
               setBackgroundColor={setBackgroundColor}
               setNotes={setNotes}
               edit={false}
+              setImg={setImg}
+              img={img}
+              setNote={setNote}
               editedNoteId={editedNoteId}
             />
           }

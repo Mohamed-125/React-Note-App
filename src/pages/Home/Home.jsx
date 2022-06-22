@@ -4,6 +4,7 @@ import "./Home.css";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Search from "../../componets/Search";
+import axios from "axios";
 const Home = ({
   notes,
   setNotes,
@@ -13,11 +14,11 @@ const Home = ({
   filteredNotes,
 }) => {
   const trashHandler = (e, item) => {
-    setNotes(
-      notes.filter((note) => {
-        return note.id !== item.id;
-      })
-    );
+    axios
+      .delete(
+        `https://62948189a7203b3ed06a58f3.mockapi.io/news/notes/${item.id}`
+      )
+      .then((res) => setNotes(notes.filter((note) => note.id !== res.data.id)));
   };
 
   return (

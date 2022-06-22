@@ -4,11 +4,12 @@
 }
 .note__div {
   margin-bottom: 30px;
-  width: 320px;
+  width: 300px;
   height: 370px;
   border-radius: 10px;
   position: relative;
   overflow: hidden;
+  cursor: default;
 }
 
 .home__add_note {
@@ -31,6 +32,7 @@ path {
   z-index: 10;
   right: 3.3rem;
   bottom: 3rem;
+  cursor: pointer;
 }
 .note__div {
   margin-right: 40px;
